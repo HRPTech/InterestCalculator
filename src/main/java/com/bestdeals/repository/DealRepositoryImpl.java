@@ -69,7 +69,7 @@ public class DealRepositoryImpl implements DealRepository {
 	public Optional<Deal> get(Long dealId) {
 		readLock.lock();
 		try {
-			return Optional.ofNullable(ObjectUtils.clone(dealMap.get(dealId)));
+			return Optional.ofNullable((dealMap.get(dealId)));
 		} finally {
 			readLock.unlock();
 		}

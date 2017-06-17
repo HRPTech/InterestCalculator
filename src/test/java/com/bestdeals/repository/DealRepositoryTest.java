@@ -1,9 +1,12 @@
 package com.bestdeals.repository;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Optional;
 
 import org.junit.Test;
 
@@ -19,9 +22,10 @@ public class DealRepositoryTest {
 	@Test
 	public void testAddSimpleDeal(){
 		Deal simple = new SimpleInterestDeal( "123LR_HIRAN", BigDecimal.valueOf(100), Currency.GBP, BigDecimal.valueOf(0.05), 2, new Date());
-		repo.addDeal(simple);
+		Long id = repo.addDeal(simple);
 		assertEquals(1,repo.getDealsByClientId("123LR_HIRAN").size());
-		
+		Optional<Deal> persistedDeal = repo.get(id);
+		assertEquals(id, repo.get(id).get().getDealId());
 	}
 	
 	@Test
