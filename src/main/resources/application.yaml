@@ -1,0 +1,6 @@
+server:
+  port: 8092
+swagger:
+  title: Best Deal Bank
+  description: Endpoints available for Best Deal Bank
+  path: /api/.*
