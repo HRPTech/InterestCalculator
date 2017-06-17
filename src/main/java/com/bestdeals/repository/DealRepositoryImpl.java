@@ -35,7 +35,7 @@ public class DealRepositoryImpl implements DealRepository {
 		readLock.lock();
 		try {
 			Set<Deal> deals = dealsByClient.getOrDefault(clientId, Collections.emptySet());
-			return Collections.unmodifiableList(deals.stream().map(d -> ObjectUtils.clone(d)).collect(Collectors.toList()));
+			return Collections.unmodifiableList(deals.stream().collect(Collectors.toList()));
 		} finally {
 			readLock.unlock();
 		}

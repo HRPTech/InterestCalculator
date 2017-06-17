@@ -1,7 +1,5 @@
 package com.bestdeals.controller;
 
-import static org.mockito.Mockito.mock;
-
 import java.math.BigDecimal;
 
 import org.junit.Before;

@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -23,8 +24,9 @@ public class DealRepositoryTest {
 	public void testAddSimpleDeal(){
 		Deal simple = new SimpleInterestDeal( "123LR_HIRAN", BigDecimal.valueOf(100), Currency.GBP, BigDecimal.valueOf(0.05), 2, new Date());
 		Long id = repo.addDeal(simple);
-		assertEquals(1,repo.getDealsByClientId("123LR_HIRAN").size());
-		Optional<Deal> persistedDeal = repo.get(id);
+		List<Deal> deals = repo.getDealsByClientId("123LR_HIRAN");
+		assertEquals(1,deals.size());
+		assertEquals("123LR_HIRAN", deals.get(0).getClientId());	
 		assertEquals(id, repo.get(id).get().getDealId());
 	}
 	
