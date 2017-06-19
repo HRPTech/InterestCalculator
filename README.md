@@ -5,7 +5,8 @@ Items outstanding;
 - Deal controller and services need more work
 
 
-To Run;
+To Run Spring Boot App;
+
 Application.java
 
 Swagger UI
