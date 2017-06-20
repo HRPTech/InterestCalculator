@@ -14,6 +14,7 @@ public class SimpleInterestDeal extends Deal {
 
 	public SimpleInterestDeal() {
 		super();
+		super.setDealType(DealType.SIMPLE_INTEREST);
 	}
 
 	public SimpleInterestDeal(String clientId, BigDecimal principal, Currency ccy, BigDecimal rate, int numberOfYear,
@@ -22,8 +23,8 @@ public class SimpleInterestDeal extends Deal {
 		super(clientId, DealType.SIMPLE_INTEREST, principal, ccy, dealDate);
 		this.numberOfYear = numberOfYear;
 		this.rate = rate;
-	}	
-	
+	}
+
 	public int getNumberOfYear() {
 		return numberOfYear;
 	}
@@ -43,6 +44,11 @@ public class SimpleInterestDeal extends Deal {
 	@Override
 	public Function<Deal, BigDecimal> getCalculation() {
 		return d -> d.getPrincipal().multiply(rate).multiply(BigDecimal.valueOf(numberOfYear));
+	}
+
+	@Override
+	public String toString() {		
+		return "SimpleInterestDeal [numberOfYear=" + numberOfYear + ", rate=" + rate + " " + super.toString() + "]";
 	}
 
 }

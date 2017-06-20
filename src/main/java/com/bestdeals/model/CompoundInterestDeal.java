@@ -1,6 +1,7 @@
 package com.bestdeals.model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 import java.util.function.Function;
 
@@ -13,11 +14,11 @@ public class CompoundInterestDeal extends Deal {
 	private BigDecimal rate;
 	private int frequency;
 
-	
 	public CompoundInterestDeal() {
 		super();
+		super.setDealType(DealType.COMPOUND_INTEREST);
 	}
-	
+
 	public CompoundInterestDeal(String clientId, BigDecimal principal, Currency ccy, BigDecimal rate, int numberOfYear,
 			int frequency, Date dealDate) {
 		super(clientId, DealType.COMPOUND_INTEREST, principal, ccy, dealDate);
@@ -52,8 +53,15 @@ public class CompoundInterestDeal extends Deal {
 
 	@Override
 	public Function<Deal, BigDecimal> getCalculation() {
-		return d -> (d.getPrincipal().multiply(
-				BigDecimal.ONE.add(rate.divide(BigDecimal.valueOf(numberOfYear))).pow(numberOfYear * frequency)))
-						.subtract(d.getPrincipal());
+		BigDecimal val = (rate.divide(BigDecimal.valueOf(frequency),10,RoundingMode.HALF_UP)).add(BigDecimal.ONE).pow(frequency*numberOfYear);
+		return d -> val.multiply(getPrincipal());
+
 	}
+
+	@Override
+	public String toString() {
+		return "CompoundInterestDeal [numberOfYear=" + numberOfYear + ", rate=" + rate + ", frequency=" + frequency
+				+ " " + super.toString() + "]";
+	}
+
 }
