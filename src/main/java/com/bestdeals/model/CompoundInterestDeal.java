@@ -9,21 +9,51 @@ import com.bestdeals.enums.DealType;
 
 public class CompoundInterestDeal extends Deal {
 
-    private final int numberOfYear; 
-	private final BigDecimal rate;
-	private final int frequency;
+	private int numberOfYear;
+	private BigDecimal rate;
+	private int frequency;
+
 	
-	public CompoundInterestDeal(String clientId, BigDecimal principal, Currency ccy,BigDecimal rate,
-			int numberOfYear,int frequency, Date date) {
-		super(clientId, DealType.COMPOUND_INTEREST, principal, ccy,date);
-		this.numberOfYear=numberOfYear;
-		this.rate=rate;	
-		this.frequency=frequency;
+	public CompoundInterestDeal() {
+		super();
+	}
+	
+	public CompoundInterestDeal(String clientId, BigDecimal principal, Currency ccy, BigDecimal rate, int numberOfYear,
+			int frequency, Date dealDate) {
+		super(clientId, DealType.COMPOUND_INTEREST, principal, ccy, dealDate);
+		this.numberOfYear = numberOfYear;
+		this.rate = rate;
+		this.frequency = frequency;
+	}
+
+	public int getNumberOfYear() {
+		return numberOfYear;
+	}
+
+	public void setNumberOfYear(int numberOfYear) {
+		this.numberOfYear = numberOfYear;
+	}
+
+	public BigDecimal getRate() {
+		return rate;
+	}
+
+	public void setRate(BigDecimal rate) {
+		this.rate = rate;
+	}
+
+	public int getFrequency() {
+		return frequency;
+	}
+
+	public void setFrequency(int frequency) {
+		this.frequency = frequency;
 	}
 
 	@Override
 	public Function<Deal, BigDecimal> getCalculation() {
-		return d -> (d.getPrincipal().multiply(BigDecimal.ONE.add(rate.divide(BigDecimal.valueOf(numberOfYear))).pow(numberOfYear*frequency)))
-				.subtract(d.getPrincipal());
+		return d -> (d.getPrincipal().multiply(
+				BigDecimal.ONE.add(rate.divide(BigDecimal.valueOf(numberOfYear))).pow(numberOfYear * frequency)))
+						.subtract(d.getPrincipal());
 	}
 }

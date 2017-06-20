@@ -41,10 +41,12 @@ public class CalculationServiceTest {
 	public void testCalculateInterestForClient(){
 		Mockito.when(dealRepo.userExists(Mockito.anyString())).thenReturn(true);
 		Mockito.when(dealRepo.getDealsByClientId(Mockito.anyString())).thenReturn(getDeals());
-		Mockito.when(fxService.getFXRate(Mockito.any())).thenReturn(BigDecimal.valueOf(0.234));
+		Mockito.when(fxService.getFXRate(Currency.GBP)).thenReturn(BigDecimal.valueOf(0.234));
+		Mockito.when(fxService.getFXRate(Currency.EUR)).thenReturn(BigDecimal.valueOf(1.4));
+		Mockito.when(fxService.getFXRate(Currency.USD)).thenReturn(BigDecimal.valueOf(1));
 		
 		BigDecimal interest = calcService.calculateInterestUSD("TEST");
-		assertEquals(BigDecimal.valueOf(18.41),interest);
+		assertEquals(BigDecimal.valueOf(1537.69),interest);
 		
 	}
 	
@@ -52,19 +54,20 @@ public class CalculationServiceTest {
 	public void testClientNotExist(){
 		Mockito.when(dealRepo.userExists(Mockito.anyString())).thenReturn(false);
 		Mockito.when(dealRepo.getDealsByClientId(Mockito.anyString())).thenReturn(getDeals());
-		Mockito.when(fxService.getFXRate(Mockito.any())).thenReturn(BigDecimal.valueOf(0.234));
-		
+		Mockito.when(fxService.getFXRate(Currency.GBP)).thenReturn(BigDecimal.valueOf(0.234));
+		Mockito.when(fxService.getFXRate(Currency.EUR)).thenReturn(BigDecimal.valueOf(1.4));
+			
 		 calcService.calculateInterestUSD("TEST");	
 		
 	}
 	
 	public List<Deal> getDeals(){
 		List<Deal> deals = new ArrayList<>();
-		Deal compound = new CompoundInterestDeal( "123LR_HIRAN", BigDecimal.valueOf(100), Currency.GBP, BigDecimal.valueOf(0.05), 2, 4, new Date());
+		Deal compound = new CompoundInterestDeal( "123LR_HIRAN", BigDecimal.valueOf(-100), Currency.GBP, BigDecimal.valueOf(0.05), 2, 4, new Date());
 		Deal simple = new SimpleInterestDeal( "123LR_HIRAN", BigDecimal.valueOf(100), Currency.GBP, BigDecimal.valueOf(0.05), 2, new Date());
 		Deal simple1 = new SimpleInterestDeal( "123LR_XYZ", BigDecimal.valueOf(100), Currency.EUR, BigDecimal.valueOf(0.15), 1, new Date());
-		Deal simpl2 = new SimpleInterestDeal( "123LR_HIRAN", BigDecimal.valueOf(100), Currency.GBP, BigDecimal.valueOf(0.05), 2, new Date());
-		Deal compound1 = new CompoundInterestDeal( "123LR_HIRAN", BigDecimal.valueOf(100), Currency.GBP, BigDecimal.valueOf(0.05), 2, 4, new Date());
+		Deal simpl2 = new SimpleInterestDeal( "123LR_HIRAN", BigDecimal.valueOf(-400), Currency.GBP, BigDecimal.valueOf(0.05), 2, new Date());
+		Deal compound1 = new CompoundInterestDeal( "123LR_HIRAN", BigDecimal.valueOf(7000), Currency.USD, BigDecimal.valueOf(0.05), 2, 4, new Date());
 	
 		deals.add(compound);
 		deals.add(simple);

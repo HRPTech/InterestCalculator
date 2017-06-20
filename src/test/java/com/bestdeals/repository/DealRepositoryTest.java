@@ -39,10 +39,10 @@ public class DealRepositoryTest {
 	
 	@Test
 	public void testAddManyDeal(){
-		Deal compound = new CompoundInterestDeal( "123LR_HIRAN", BigDecimal.valueOf(100), Currency.GBP, BigDecimal.valueOf(0.05), 2, 4, new Date());
+		Deal compound = new CompoundInterestDeal( "123LR_HIRAN", BigDecimal.valueOf(-100), Currency.GBP, BigDecimal.valueOf(0.05), 2, 4, new Date());
 		Deal simple = new SimpleInterestDeal( "123LR_HIRAN", BigDecimal.valueOf(100), Currency.GBP, BigDecimal.valueOf(0.05), 2, new Date());
-		Deal simple1 = new SimpleInterestDeal("123LR_XYZ", BigDecimal.valueOf(100), Currency.EUR, BigDecimal.valueOf(0.15), 1, new Date());
-		Deal simpl2 = new SimpleInterestDeal( "123LR_HIRAN", BigDecimal.valueOf(100), Currency.GBP, BigDecimal.valueOf(0.05), 2, new Date());
+		Deal simple1 = new SimpleInterestDeal("123LR_XYZ", BigDecimal.valueOf(-5), Currency.EUR, BigDecimal.valueOf(0.15), 1, new Date());
+		Deal simpl2 = new SimpleInterestDeal( "123LR_HIRAN", BigDecimal.valueOf(-50), Currency.GBP, BigDecimal.valueOf(0.05), 2, new Date());
 		Deal compound1 = new CompoundInterestDeal( "123LR_HIRAN", BigDecimal.valueOf(100), Currency.GBP, BigDecimal.valueOf(0.05), 2, 4, new Date());
 				
 		repo.addDeal(compound);

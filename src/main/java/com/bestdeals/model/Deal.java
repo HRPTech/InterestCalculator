@@ -6,34 +6,39 @@ import java.util.function.Function;
 
 import com.bestdeals.enums.Currency;
 import com.bestdeals.enums.DealType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public abstract class Deal {
-
+	@JsonIgnore
 	private Long dealId;
-	private final String clientId;
-	private final DealType dealType;
-	private final BigDecimal principal;
-	private final Currency ccy;
-	private final Date dealDate;
+	private String clientId;
+	private DealType dealType;
+	private BigDecimal principal;
+	private Currency ccy;
+	@JsonFormat(pattern="yyyy-MM-dd")
+	private Date dealDate;
 
-	public Deal(String clientId, DealType dealType, BigDecimal principal, Currency ccy,Date dealDate) {
-		super();	
+	public Deal(String clientId, DealType dealType, BigDecimal principal, Currency ccy, Date dealDate) {
+		super();
 		this.clientId = clientId;
 		this.dealType = dealType;
 		this.principal = principal;
-		this.ccy = ccy;		
-		this.dealDate=dealDate;
+		this.ccy = ccy;
+		this.dealDate = dealDate;
 	}
-	
+
+	public Deal() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@JsonIgnore
 	public abstract Function<Deal, BigDecimal> getCalculation();
-
-		
+	@JsonIgnore
 	public void setDealId(Long dealId) {
 		this.dealId = dealId;
 	}
-
+	@JsonIgnore
 	public Long getDealId() {
 		return dealId;
 	}
@@ -42,6 +47,7 @@ public abstract class Deal {
 		return clientId;
 	}
 
+	@JsonIgnore
 	public DealType getDealType() {
 		return dealType;
 	}
@@ -53,9 +59,29 @@ public abstract class Deal {
 	public Currency getCcy() {
 		return ccy;
 	}
-	
+
 	public Date getDealDate() {
 		return dealDate;
+	}
+	
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
+	}
+
+	public void setDealType(DealType dealType) {
+		this.dealType = dealType;
+	}
+
+	public void setPrincipal(BigDecimal principal) {
+		this.principal = principal;
+	}
+
+	public void setCcy(Currency ccy) {
+		this.ccy = ccy;
+	}
+
+	public void setDealDate(Date dealDate) {
+		this.dealDate = dealDate;
 	}
 
 	@Override
@@ -88,6 +114,5 @@ public abstract class Deal {
 		return "Deal [dealId=" + dealId + ", clientId=" + clientId + ", dealType=" + dealType + ", principal="
 				+ principal + ", ccy=" + ccy + "]";
 	}
-
 
 }

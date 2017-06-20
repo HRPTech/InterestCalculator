@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.stereotype.Repository;
 
 import com.bestdeals.enums.Currency;
+
 @Repository
 public class FXRepositoryImpl implements FXRepository {
 
@@ -19,7 +20,7 @@ public class FXRepositoryImpl implements FXRepository {
 		}
 
 		if (to.equals(Currency.USD)) {
-			return fxCache.get(from);
+			return fxCache.compute(from, (k, v) -> v == null ? BigDecimal.ONE : v);
 		}
 
 		// Need to implement currency conversion logic here if the to currency
@@ -29,7 +30,7 @@ public class FXRepositoryImpl implements FXRepository {
 
 	@Override
 	public void addRate(Currency from, Currency to, BigDecimal rate) {
-		if (to.equals(Currency.USD)){
+		if (to.equals(Currency.USD)) {
 			fxCache.put(from, rate);
 		}
 

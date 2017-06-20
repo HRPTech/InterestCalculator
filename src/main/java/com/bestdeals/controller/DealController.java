@@ -2,7 +2,10 @@ package com.bestdeals.controller;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,12 +37,12 @@ public class DealController {
 		}
 	}
 	
-	@RequestMapping(value = "/simpleInterest", method = RequestMethod.PUT)
-	public Long addSimpleInterestDeal(@RequestBody final SimpleInterestDeal deal) {		
+	@RequestMapping(value = "/simpleInterest", method = RequestMethod.POST)
+	public Long addSimpleInterestDeal(@RequestBody SimpleInterestDeal deal) {		
 		return service.addDeal(deal);
 	}
 	
-	@RequestMapping(value = "/compoundInterest", method = RequestMethod.PUT)
+	@RequestMapping(value = "/compoundInterest", method = RequestMethod.POST)
 	public Long addCompoundInterestDeal(@RequestBody final CompoundInterestDeal deal) {		
 		return service.addDeal(deal);
 	}

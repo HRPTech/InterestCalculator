@@ -9,14 +9,34 @@ import com.bestdeals.enums.DealType;
 
 public class SimpleInterestDeal extends Deal {
 
-	private final int numberOfYear;
-	private final BigDecimal rate;
+	private int numberOfYear;
+	private BigDecimal rate;
 
-	public SimpleInterestDeal(String clientId, BigDecimal principal, Currency ccy, BigDecimal rate,
-			int numberOfYear, Date date) {
+	public SimpleInterestDeal() {
+		super();
+	}
 
-		super(clientId, DealType.SIMPLE_INTEREST, principal, ccy, date);
+	public SimpleInterestDeal(String clientId, BigDecimal principal, Currency ccy, BigDecimal rate, int numberOfYear,
+			Date dealDate) {
+
+		super(clientId, DealType.SIMPLE_INTEREST, principal, ccy, dealDate);
 		this.numberOfYear = numberOfYear;
+		this.rate = rate;
+	}	
+	
+	public int getNumberOfYear() {
+		return numberOfYear;
+	}
+
+	public void setNumberOfYear(int numberOfYear) {
+		this.numberOfYear = numberOfYear;
+	}
+
+	public BigDecimal getRate() {
+		return rate;
+	}
+
+	public void setRate(BigDecimal rate) {
 		this.rate = rate;
 	}
 
