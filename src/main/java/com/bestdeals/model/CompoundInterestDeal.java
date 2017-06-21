@@ -54,7 +54,7 @@ public class CompoundInterestDeal extends Deal {
 	@Override
 	public Function<Deal, BigDecimal> getCalculation() {
 		BigDecimal val = (rate.divide(BigDecimal.valueOf(frequency),10,RoundingMode.HALF_UP)).add(BigDecimal.ONE).pow(frequency*numberOfYear);
-		return d -> val.multiply(getPrincipal());
+		return d -> val.multiply(getPrincipal()).subtract(getPrincipal());
 
 	}
 

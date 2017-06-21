@@ -46,7 +46,7 @@ public class CalculationServiceTest {
 		Mockito.when(fxService.getFXRate(Currency.USD)).thenReturn(BigDecimal.valueOf(1));
 		
 		BigDecimal interest = calcService.calculateInterestUSD("TEST");
-		assertEquals(BigDecimal.valueOf(7719.54),interest);
+		assertEquals(BigDecimal.valueOf(742.94),interest);
 		
 	}
 	

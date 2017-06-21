@@ -2,10 +2,7 @@ package com.bestdeals.controller;
 
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +14,6 @@ import com.bestdeals.model.CompoundInterestDeal;
 import com.bestdeals.model.Deal;
 import com.bestdeals.model.SimpleInterestDeal;
 import com.bestdeals.service.DealService;
-
-
 
 @RestController
 @RequestMapping(value = { "/api/deal" })
