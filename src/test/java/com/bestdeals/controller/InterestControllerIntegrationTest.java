@@ -1,5 +1,7 @@
 package com.bestdeals.controller;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -49,8 +51,8 @@ public class InterestControllerIntegrationTest {
 
 	@Test
 	public void testInterestForUser() throws Exception {
-	System.out.println(	RestAssured.given().when().header("Content-Type", "application/json").get("/api/calculation/interest/123LR_HIRAN").then()
-				.assertThat().statusCode(HttpStatus.SC_OK));
+		RestAssured.given().when().header("Content-Type", "application/json").get("/api/calculation/interest/123LR_HIRAN").then()
+				.assertThat().statusCode(HttpStatus.SC_OK).body(equalTo("20.36"));
 
 	}
 
