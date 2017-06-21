@@ -42,6 +42,9 @@ public class InterestControllerIntegrationTest {
 		repo.addDeal(new CompoundInterestDeal("123LR_HIRAN", BigDecimal.valueOf(100), Currency.USD,
 				BigDecimal.valueOf(0.05), 2, 4, new Date()));
 		
+		repo.addDeal(new CompoundInterestDeal("123LR_PETER", BigDecimal.valueOf(100), Currency.USD,
+				BigDecimal.valueOf(0.05), 2, 4, new Date()));
+		
 		fxRepo.addRate(Currency.GBP, Currency.USD, BigDecimal.valueOf(1.20));
 		fxRepo.addRate(Currency.EUR, Currency.USD, BigDecimal.valueOf(0.12320));
 		
