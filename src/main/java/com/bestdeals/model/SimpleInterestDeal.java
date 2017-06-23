@@ -4,33 +4,38 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.function.Function;
 
+import javax.validation.constraints.NotNull;
+
 import com.bestdeals.enums.Currency;
-import com.bestdeals.enums.DealType;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(description = "Simple Interest Deal", parent = Deal.class)
 public class SimpleInterestDeal extends Deal {
-
-	private int numberOfYear;
+	@NotNull
+	private Integer numberOfYears;
+	@NotNull
 	private BigDecimal rate;
 
 	public SimpleInterestDeal() {
 		super();
-		super.setDealType(DealType.SIMPLE_INTEREST);
+
 	}
 
-	public SimpleInterestDeal(String clientId, BigDecimal principal, Currency ccy, BigDecimal rate, int numberOfYear,
+	public SimpleInterestDeal(String clientId, BigDecimal principal, Currency ccy, BigDecimal rate, Integer numberOfYears,
 			Date dealDate) {
 
-		super(clientId, DealType.SIMPLE_INTEREST, principal, ccy, dealDate);
-		this.numberOfYear = numberOfYear;
+		super(clientId, principal, ccy, dealDate);
+		this.numberOfYears = numberOfYears;
 		this.rate = rate;
 	}
 
-	public int getNumberOfYear() {
-		return numberOfYear;
+	public Integer getNumberOfYears() {
+		return numberOfYears;
 	}
 
-	public void setNumberOfYear(int numberOfYear) {
-		this.numberOfYear = numberOfYear;
+	public void setNumberOfYears(Integer numberOfYears) {
+		this.numberOfYears = numberOfYears;
 	}
 
 	public BigDecimal getRate() {
@@ -43,12 +48,12 @@ public class SimpleInterestDeal extends Deal {
 
 	@Override
 	public Function<Deal, BigDecimal> getCalculation() {
-		return d -> d.getPrincipal().multiply(rate).multiply(BigDecimal.valueOf(numberOfYear));
+		return d -> d.getPrincipal().multiply(rate).multiply(BigDecimal.valueOf(numberOfYears));
 	}
 
 	@Override
-	public String toString() {		
-		return "SimpleInterestDeal [numberOfYear=" + numberOfYear + ", rate=" + rate + " " + super.toString() + "]";
+	public String toString() {
+		return "SimpleInterestDeal [numberOfYear=" + numberOfYears + ", rate=" + rate + " " + super.toString() + "]";
 	}
 
 }

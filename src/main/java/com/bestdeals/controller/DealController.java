@@ -2,6 +2,8 @@ package com.bestdeals.controller;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bestdeals.exceptions.NotFoundException;
-import com.bestdeals.model.CompoundInterestDeal;
 import com.bestdeals.model.Deal;
-import com.bestdeals.model.SimpleInterestDeal;
 import com.bestdeals.service.DealService;
+
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping(value = { "/api/deal" })
@@ -31,14 +33,9 @@ public class DealController {
 			throw new NotFoundException("Deal not found");
 		}
 	}
-	
-	@RequestMapping(value = "/simpleInterest", method = RequestMethod.POST)
-	public Long addSimpleInterestDeal(@RequestBody SimpleInterestDeal deal) {		
-		return service.addDeal(deal);
-	}
-	
-	@RequestMapping(value = "/compoundInterest", method = RequestMethod.POST)
-	public Long addCompoundInterestDeal(@RequestBody final CompoundInterestDeal deal) {		
+
+	@RequestMapping( method = RequestMethod.POST)
+	public Long addDeal(@ApiParam(value = "Deal" ,required=true ) @RequestBody @Valid final Deal deal) {
 		return service.addDeal(deal);
 	}
 

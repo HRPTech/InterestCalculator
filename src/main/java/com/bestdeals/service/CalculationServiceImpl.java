@@ -21,8 +21,7 @@ public class CalculationServiceImpl implements CalculationService {
 	private DealRepository dealRepo;
 
 	@Autowired
-	public CalculationServiceImpl(FXService fxService, DealRepository dealRepo) {
-		super();
+	public CalculationServiceImpl(FXService fxService, DealRepository dealRepo) {		
 		this.fxService = fxService;
 		this.dealRepo = dealRepo;
 	}

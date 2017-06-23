@@ -16,15 +16,13 @@ public class DealServiceImpl implements DealService {
 	private DealRepository dealRepo;
 
 	@Autowired
-	public DealServiceImpl(DealRepository dealRepo) {
-		super();
+	public DealServiceImpl(DealRepository dealRepo) {		
 		this.dealRepo = dealRepo;
 	}
 
 	@Override
 	public Long addDeal(Deal deal) {
 		log.info("Add deal called {}", deal);
-		// validation checks would take place here 
 		return dealRepo.addDeal(deal);
 	}
 

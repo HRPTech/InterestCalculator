@@ -14,7 +14,7 @@ public class FXServiceImpl implements FXService {
 
 	@Autowired
 	public FXServiceImpl(FXRepository fxRepo) {
-		super();
+		
 		this.fxRepo = fxRepo;
 	}
 
