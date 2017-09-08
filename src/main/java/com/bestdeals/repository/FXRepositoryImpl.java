@@ -15,6 +15,11 @@ public class FXRepositoryImpl implements FXRepository {
 
 	@Override
 	public BigDecimal getRate(Currency from, Currency to) {
+		if (from == null || to == null)
+		{
+			return BigDecimal.ONE;
+		}
+			
 		if (from.equals(to)) {
 			return BigDecimal.ONE;
 		}

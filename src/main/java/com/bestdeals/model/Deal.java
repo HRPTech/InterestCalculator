@@ -17,7 +17,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import io.swagger.annotations.ApiModel;
 
 @JsonTypeInfo(use = Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true)
-
 @JsonSubTypes({ @Type(value = CompoundInterestDeal.class, name = "COMPOUND"),
 		@Type(value = SimpleInterestDeal.class, name = "SIMPLE"), })
 @ApiModel(subTypes = { CompoundInterestDeal.class, SimpleInterestDeal.class }, discriminator = "type")

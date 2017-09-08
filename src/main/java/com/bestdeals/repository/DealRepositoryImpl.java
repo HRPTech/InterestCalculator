@@ -1,5 +1,6 @@
 package com.bestdeals.repository;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,10 +15,10 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Repository;
 
 import com.bestdeals.model.Deal;
+import com.bestdeals.model.Person;
 
 @Repository
 public class DealRepositoryImpl implements DealRepository {
@@ -41,7 +42,7 @@ public class DealRepositoryImpl implements DealRepository {
 		}
 	}
 
-	@Override
+	@Override	
 	public Long addDeal(Deal deal) {
 		writeLock.lock();
 		try {
@@ -49,6 +50,7 @@ public class DealRepositoryImpl implements DealRepository {
 			deal.setDealId(id);
 			dealMap.put(id, deal);
 			dealsByClient.compute(deal.getClientId(), (k, v) -> addDeal().apply(v, deal));
+		
 			return id;
 		} finally {
 			writeLock.unlock();
@@ -65,7 +67,7 @@ public class DealRepositoryImpl implements DealRepository {
 		};
 	}
 
-	@Override
+	@Override	
 	public Optional<Deal> get(Long dealId) {
 		readLock.lock();
 		try {
@@ -73,6 +75,17 @@ public class DealRepositoryImpl implements DealRepository {
 		} finally {
 			readLock.unlock();
 		}
+	}
+	
+	public List<Person> getAllDeals(){
+		Person hiran = new Person("Hiran", 1);
+		Person sheetal = new Person("Sheetal", 2);
+		
+		List<Person> personList = new ArrayList<>();
+		personList.add(hiran);
+		personList.add(sheetal);
+		return personList;
+		
 	}
 
 	@Override
