@@ -17,4 +17,5 @@ public interface DealService {
 	Workbook generateExcel();
 
 	ResponseEntity<Resource> getExcelSheetAsResource();
+
 }

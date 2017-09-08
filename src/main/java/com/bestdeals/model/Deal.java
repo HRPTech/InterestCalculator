@@ -7,6 +7,8 @@ import java.util.function.Function;
 import javax.validation.constraints.NotNull;
 
 import com.bestdeals.enums.Currency;
+import com.excel.common_excel.annotation.ExcelCell;
+import com.excel.helper.SpreadsheetCellHelper.Style;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -22,15 +24,20 @@ import io.swagger.annotations.ApiModel;
 @ApiModel(subTypes = { CompoundInterestDeal.class, SimpleInterestDeal.class }, discriminator = "type")
 public abstract class Deal {
 	@JsonIgnore
+	@ExcelCell(header = "Deal Id", order = 0, width = 1000, style = Style.TITLE)
 	private Long dealId;
 	@NotNull
+	@ExcelCell(header = "Client Id", order = 1, width = 1000)
 	private String clientId;
 	@NotNull
+	@ExcelCell(header = "Principal", order = 2, width = 1000, style=Style.TWO_NUMBER_FORMAT)
 	private BigDecimal principal;
 	@NotNull
+	@ExcelCell(header = "Currency", order = 3, width = 1000)
 	private Currency ccy;
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@NotNull
+	@ExcelCell(header = "Date", order = 4, width = 1000)
 	private Date dealDate;
 
 	public Deal(String clientId, BigDecimal principal, Currency ccy, Date dealDate) {

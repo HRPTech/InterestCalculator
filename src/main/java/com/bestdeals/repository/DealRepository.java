@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.bestdeals.model.Deal;
-import com.bestdeals.model.Person;
 
 public interface DealRepository {
 
@@ -16,5 +15,5 @@ public interface DealRepository {
 
 	Optional<Deal> get(Long dealId);
 
-	public List<Person> getAllDeals();
+	List<Deal> getAllDeals();
 }

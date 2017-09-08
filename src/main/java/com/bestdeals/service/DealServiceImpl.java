@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.bestdeals.model.Deal;
-import com.bestdeals.model.Person;
 import com.bestdeals.repository.DealRepository;
 import com.database.common.service.EntityDatabaseService;
 import com.database.common.service.EntityDatabaseServiceImpl;
@@ -48,12 +47,11 @@ public class DealServiceImpl implements DealService {
 	}
 	
 	public Workbook generateExcel(){		
-		return excelService.getExcelSheet(dealRepo.getAllDeals(), Person.class, "Deals", "DealsSheet");
-				
+		return excelService.getExcelSheet(dealRepo.getAllDeals(), Deal.class, "Deals", "DealsSheet");				
 	}
 	
 	public ResponseEntity<Resource> getExcelSheetAsResource(){
-		return excelService.getExcelSheetAsResource(dealRepo.getAllDeals(), Person.class, "Deals", "DealsSheet");
-	}
-
+		return excelService.getExcelSheetAsResource(dealRepo.getAllDeals(), Deal.class, "Deals", "DealsSheet");
+	}	
+	
 }

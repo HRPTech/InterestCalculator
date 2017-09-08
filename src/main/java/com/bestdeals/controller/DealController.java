@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bestdeals.annotations.AccessCheck;
 import com.bestdeals.annotations.Logged;
 import com.bestdeals.exceptions.NotFoundException;
 import com.bestdeals.model.Deal;
@@ -58,6 +59,7 @@ public class DealController {
 		return service.addDeal(deal);
 	}
 
+	@AccessCheck("PERMISSION TO DOWNLOAD EXCEL")
 	@RequestMapping(value = "/workbook/excel", method = RequestMethod.GET)
 	public void getAllDealsExcel(HttpServletResponse response) throws IOException {
 
@@ -74,7 +76,6 @@ public class DealController {
 	
 	@RequestMapping(value = "/excel", method = RequestMethod.GET)
 	public ResponseEntity<Resource> getAllDealsExcel() throws IOException {
-
 		ResponseEntity<Resource> response= service.getExcelSheetAsResource();	
 		return response;
 
@@ -83,13 +84,9 @@ public class DealController {
 	@RequestMapping(value = "/database/{dealId}", method = RequestMethod.GET)
 	@Logged
 	public Deal getDealFromDB(@PathVariable("dealId") final Long dealId) {
-		Page<DealEntity> result = dbService.getData(dealId);
-
-		System.out.println(result.getTotalElements());
-
+		Page<DealEntity> result = dbService.getData(dealId);		
 		Deal d = new SimpleInterestDeal();
 		d.setDealId(result.getContent().stream().findAny().get().getDealId());
-
 		return d;
 	}
 	

@@ -1,6 +1,5 @@
 package com.bestdeals.repository;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -18,7 +17,6 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Repository;
 
 import com.bestdeals.model.Deal;
-import com.bestdeals.model.Person;
 
 @Repository
 public class DealRepositoryImpl implements DealRepository {
@@ -75,19 +73,17 @@ public class DealRepositoryImpl implements DealRepository {
 		} finally {
 			readLock.unlock();
 		}
+	}	
+
+	public List<Deal> getAllDeals() {
+		readLock.lock();
+		try {
+			return Collections.unmodifiableList(dealMap.values().stream().collect(Collectors.toList()));
+		} finally {
+			readLock.unlock();
+		}
 	}
 	
-	public List<Person> getAllDeals(){
-		Person hiran = new Person("Hiran", 1);
-		Person sheetal = new Person("Sheetal", 2);
-		
-		List<Person> personList = new ArrayList<>();
-		personList.add(hiran);
-		personList.add(sheetal);
-		return personList;
-		
-	}
-
 	@Override
 	public Boolean userExists(String clientId) {
 		return dealsByClient.containsKey(clientId);
