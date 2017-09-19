@@ -54,7 +54,7 @@ public class DealController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	@Logged
+	@Logged(timed=true)
 	public Long addDeal(@ApiParam(value = "Deal", required = true) @RequestBody @Valid final Deal deal) {		
 		return service.addDeal(deal);
 	}
@@ -77,6 +77,13 @@ public class DealController {
 	@RequestMapping(value = "/excel", method = RequestMethod.GET)
 	public ResponseEntity<Resource> getAllDealsExcel() throws IOException {
 		ResponseEntity<Resource> response= service.getExcelSheetAsResource();	
+		return response;
+
+	}
+	
+	@RequestMapping(value = "/multi/excel", method = RequestMethod.GET)
+	public ResponseEntity<Resource> generateMultiSheetExcel() throws IOException {
+		ResponseEntity<Resource> response= service.generateMultiSheetExcel();	
 		return response;
 
 	}

@@ -22,7 +22,6 @@ import com.bestdeals.model.CompoundInterestDeal;
 import com.bestdeals.model.SimpleInterestDeal;
 import com.bestdeals.repository.DealRepository;
 import com.bestdeals.repository.FXRepository;
-import com.database.common.repository.DealDBRepository;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.builder.RequestSpecBuilder;
 import com.jayway.restassured.specification.RequestSpecification;
@@ -39,9 +38,6 @@ public class InterestControllerIntegrationTest {
 
 	@Autowired
 	private FXRepository fxRepo;
-	
-	@Autowired
-	private DealDBRepository dbRepo;
 	
 	@Before
 	public void setUp() {

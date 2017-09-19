@@ -19,9 +19,7 @@ public class AccessAspect {
 		//throw runtime exception if the user is not permissioned
 		if (permission.equals("Exception")){
 			throw new RuntimeException("Not Permissioned");
-		}
-		
-		
+		}		
 	}
 
 }

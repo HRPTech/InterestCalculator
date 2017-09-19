@@ -18,4 +18,6 @@ public interface DealService {
 
 	ResponseEntity<Resource> getExcelSheetAsResource();
 
+	ResponseEntity<Resource> generateMultiSheetExcel();
+
 }

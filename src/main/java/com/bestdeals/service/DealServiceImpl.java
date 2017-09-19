@@ -19,7 +19,7 @@ import com.excel.common_excel.service.ExcelService;
 import com.excel.common_excel.service.ExcelServiceImpl;
 
 @Service
-@Import({ ExcelServiceImpl.class,EntityDatabaseServiceImpl.class })
+@Import({ ExcelServiceImpl.class, EntityDatabaseServiceImpl.class })
 public class DealServiceImpl implements DealService {
 	private final Logger log = LoggerFactory.getLogger(DealServiceImpl.class);
 	private DealRepository dealRepo;
@@ -27,15 +27,15 @@ public class DealServiceImpl implements DealService {
 	private EntityDatabaseService dbService;
 
 	@Autowired
-	public DealServiceImpl(DealRepository dealRepo,ExcelService excelService,EntityDatabaseService dbService) {		
+	public DealServiceImpl(DealRepository dealRepo, ExcelService excelService, EntityDatabaseService dbService) {
 		this.dealRepo = dealRepo;
-		this.excelService=excelService;
-		this.dbService=dbService;
+		this.excelService = excelService;
+		this.dbService = dbService;
 	}
 
 	@Override
 	public Long addDeal(Deal deal) {
-		log.info("Add deal called {}", deal);		
+		log.info("Add deal called {}", deal);
 		return dealRepo.addDeal(deal);
 	}
 
@@ -45,13 +45,23 @@ public class DealServiceImpl implements DealService {
 		dbService.getData(dealId);
 		return dealRepo.get(dealId);
 	}
-	
-	public Workbook generateExcel(){		
-		return excelService.getExcelSheet(dealRepo.getAllDeals(), Deal.class, "Deals", "DealsSheet");				
+
+	public Workbook generateExcel() {
+		Workbook workbook = excelService.generateWorkbook();
+		excelService.generateMultiSheetExcel(dealRepo.getAllDeals(), Deal.class, "Deals", workbook);
+		return workbook;
+
 	}
-	
-	public ResponseEntity<Resource> getExcelSheetAsResource(){
-		return excelService.getExcelSheetAsResource(dealRepo.getAllDeals(), Deal.class, "Deals", "DealsSheet");
-	}	
-	
+
+	public ResponseEntity<Resource> generateMultiSheetExcel() {		
+		Workbook workbook = excelService.generateWorkbook();
+		excelService.generateMultiSheetExcel(dealRepo.getAllDeals(), Deal.class, "Deals", workbook);
+		excelService.generateMultiSheetExcel(dealRepo.getAllDeals(), Deal.class, "Latest Deals", workbook);
+		return excelService.generateExcelResource(workbook, "Multisheet");
+	}
+
+	public ResponseEntity<Resource> getExcelSheetAsResource() {
+		return excelService.getSingleExcelSheetAsResource(dealRepo.getAllDeals(), Deal.class, "Deals", "DealsSheet");
+	}
+
 }
